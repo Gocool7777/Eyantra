@@ -1,0 +1,37 @@
+
+
+int count =0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(D4,INPUT_PULLUP);
+ 
+  Serial.begin(9600);
+WiFi.begin(E_yantra,12345678);
+Serial.print("connecting");
+while(WiFi.status()!=WL_CONNECTED){
+  Serial.print(".");
+  delay(500);
+}
+Serial.println();
+Serial.print("connected:");
+Serial.println(WiFi.localIP());
+Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+Firebase.setInt("Step", 0);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+if(digitalRead(D4)==LOW){
+  count = count +1;
+  Serial.print(count);
+  delay(700);
+  digitalWrite(D4,HIGH);
+ 
+
+  
+  
+}
+  Firebase.setInt("Steps",count);
+  delay(1000);
+  
+}
